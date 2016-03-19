@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using HQF.Tutorial.FileServer.WebAPI.Infrastructure;
-using HQF.Tutorial.FileServer.WebAPI.Models;
 
 namespace HQF.Tutorial.FileServer.WebAPI.Controllers
 {
@@ -27,7 +24,7 @@ namespace HQF.Tutorial.FileServer.WebAPI.Controllers
 
             var multipartFormDataStreamProvider = new UploadMultipartFormProvider(uploadPath);
 
-            // Read the MIME multipart asynchronously 
+            // Read the MIME multipart asynchronously
             await Request.Content.ReadAsMultipartAsync(multipartFormDataStreamProvider);
 
             string _localFileName = multipartFormDataStreamProvider

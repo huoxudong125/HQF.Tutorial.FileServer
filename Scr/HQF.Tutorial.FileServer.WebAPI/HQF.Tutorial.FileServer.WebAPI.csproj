@@ -122,7 +122,6 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
-    <Compile Include="Models\FileUploadResult.cs" />
     <Compile Include="Infrastructure\MimeMultipart.cs" />
     <Compile Include="Infrastructure\UploadMultipartFormProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -139,8 +138,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
     <Folder Include="Public\" />
     <Folder Include="UploadFiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HQF.Tutorial.FileServer.Models\HQF.Tutorial.FileServer.Models.csproj">
+      <Project>{6b10550e-2bb6-4aaf-8719-f24d2801c1bd}</Project>
+      <Name>HQF.Tutorial.FileServer.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

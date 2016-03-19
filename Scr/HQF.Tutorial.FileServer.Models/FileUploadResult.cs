@@ -1,4 +1,4 @@
-﻿namespace HQF.Tutorial.FileServer.WebAPI.Models
+﻿namespace HQF.Tutorial.FileServer
 {
     public class FileUploadResult
     {
