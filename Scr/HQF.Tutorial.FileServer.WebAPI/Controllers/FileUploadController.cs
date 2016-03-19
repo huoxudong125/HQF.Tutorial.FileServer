@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace HQF.Tutorial.FileServer.WebAPI.Controllers
         [MimeMultipart]
         [HttpPost]
         [Route("")]
-        public async Task<FileUploadResult> Post()
+        public async Task<IEnumerable<FileUploadResult>> Post()
         {
             var uploadPath = HttpContext.Current.Server.MapPath(_uploadFolder);
 
@@ -30,18 +31,17 @@ namespace HQF.Tutorial.FileServer.WebAPI.Controllers
             // Read the MIME multipart asynchronously
             await Request.Content.ReadAsMultipartAsync(multipartFormDataStreamProvider);
 
-            string _localFileName = multipartFormDataStreamProvider
-                .FileData.Select(multiPartData => multiPartData.LocalFileName).FirstOrDefault();
+          var fileInfo = multipartFormDataStreamProvider.FileData.Select(i => {
+                var info = new FileInfo(i.LocalFileName);
+                return new FileUploadResult() {
+                    FileName = info.Name,
+                    LocalFilePath = uploadPath + "/" + _uploadFolder + "/" + info.Name,
+                    FileLength = info.Length / 1024};
+            });
+
 
             // Create response
-            return new FileUploadResult
-            {
-                LocalFilePath = _localFileName,
-
-                FileName = Path.GetFileName(_localFileName),
-
-                FileLength = new FileInfo(_localFileName).Length
-            };
+            return fileInfo; ;
         }
     }
 }

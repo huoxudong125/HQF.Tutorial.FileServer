@@ -1,0 +1,49 @@
+﻿<Window x:Class="HQF.Tutorial.FileServer.Client.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HQF.Tutorial.FileServer.Client.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="40" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="20" />
+    </Grid.RowDefinitions>
+
+    <StackPanel HorizontalAlignment="Left" Height="30" Margin="10,7,0,0" VerticalAlignment="Top" Grid.Row="0">
+        <TextBlock TextWrapping="Wrap" Text="Drop your files below to upload them" FontSize="18"/>
+    </StackPanel>
+
+    <ListBox ItemsSource="{Binding Path=Files}" Grid.Row="1" Name="DropBox"
+             HorizontalAlignment="Stretch"  Margin="4" 
+             VerticalAlignment="Stretch" AllowDrop="True" 
+             Drop="DropBox_Drop" DragOver="DropBox_DragOver" 
+             DragLeave="DropBox_DragLeave" Background="#FFE2E2E2" FontSize="10">
+    </ListBox>
+
+    <StatusBar Grid.Row="2" Height="22" VerticalAlignment="Bottom">
+        <StatusBar.ItemsPanel>
+            <ItemsPanelTemplate>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto" MinWidth="100"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </ItemsPanelTemplate>
+        </StatusBar.ItemsPanel>
+        <StatusBarItem>
+            <TextBlock Name="StatusIndicator" Text="Ready"></TextBlock>
+        </StatusBarItem>
+        <StatusBarItem Grid.Column="1">
+            <ProgressBar Width="100" Height="20" Name="ProgressBar"/>
+        </StatusBarItem>
+    </StatusBar>
+    </Grid>
+</Window>
