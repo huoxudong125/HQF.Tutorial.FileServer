@@ -1,9 +1,9 @@
 #HQF.Tutorial.FileServer
 
 ##How To Host The Server
-The File Server two way host:
- 1. `IIS` 
- 2. SelfHost using `Owin` 
+The File Server two way host:  
+ 1. `IIS`   
+ 2. SelfHost using `Owin`   
 
 ##Using `MulitPart` to upload the files
 
