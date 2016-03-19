@@ -8,6 +8,8 @@ using HQF.Tutorial.FileServer.WebAPI.Infrastructure;
 
 namespace HQF.Tutorial.FileServer.WebAPI.Controllers
 {
+
+    [RoutePrefix("api/Files")]
     public class FileUploadController : ApiController
     {
         private readonly string _uploadFolder = "~/UploadFiles";
@@ -18,6 +20,7 @@ namespace HQF.Tutorial.FileServer.WebAPI.Controllers
         /// <returns></returns>
         [MimeMultipart]
         [HttpPost]
+        [Route("")]
         public async Task<FileUploadResult> Post()
         {
             var uploadPath = HttpContext.Current.Server.MapPath(_uploadFolder);

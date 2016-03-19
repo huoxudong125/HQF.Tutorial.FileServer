@@ -15,12 +15,18 @@ namespace HQF.Tutorial.FileServer.WebAPI
         {
             var httpConfiguration = new HttpConfiguration();
 
+           
+
             // Configure Web API Routes:
             // - Enable Attribute Mapping
             // - Enable Default routes at /api.
             WebApiConfig.Register(httpConfiguration);
 
+
+            SwaggerConfig.Register(httpConfiguration);
+
             app.UseWebApi(httpConfiguration);
+
 
             // Make ./public the default root of the static files in our Web Application.
             app.UseFileServer(new FileServerOptions
