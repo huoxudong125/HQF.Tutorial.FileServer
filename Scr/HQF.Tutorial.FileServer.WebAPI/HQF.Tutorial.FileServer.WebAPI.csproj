@@ -135,8 +135,11 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
+    <Compile Include="Providers\CachingSwaggerProvider.cs" />
+    <Compile Include="Providers\CustomCorsPolicyProvider.cs" />
     <Compile Include="Infrastructure\MimeMultipart.cs" />
-    <Compile Include="Infrastructure\UploadMultipartFormProvider.cs" />
+    <Compile Include="Infrastructure\SwaggerConfig.cs" />
+    <Compile Include="Providers\UploadMultipartFormProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

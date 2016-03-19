@@ -1,5 +1,8 @@
-﻿using System.Web.Http;
+﻿using System.Threading.Tasks;
+using System.Web.Http;
+using HQF.Tutorial.FileServer.WebAPI.Providers;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.Extensions;
 using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.StaticFiles;
@@ -24,6 +27,14 @@ namespace HQF.Tutorial.FileServer.WebAPI
 
 
             SwaggerConfig.Register(httpConfiguration);
+
+            //Allow Cors
+            var corsOptions = new CorsOptions
+            {
+                PolicyProvider = new CustomCorsPolicyProvider()
+            };
+            app.UseCors(corsOptions);
+
 
             app.UseWebApi(httpConfiguration);
 

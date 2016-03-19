@@ -1,0 +1,24 @@
+﻿using System.Collections.Concurrent;
+using Swashbuckle.Swagger;
+
+namespace HQF.Tutorial.FileServer.WebAPI.Providers
+{
+    public class CachingSwaggerProvider : ISwaggerProvider
+    {
+        private static ConcurrentDictionary<string, SwaggerDocument> _cache =
+            new ConcurrentDictionary<string, SwaggerDocument>();
+
+        private readonly ISwaggerProvider _swaggerProvider;
+
+        public CachingSwaggerProvider(ISwaggerProvider swaggerProvider)
+        {
+            _swaggerProvider = swaggerProvider;
+        }
+
+        public SwaggerDocument GetSwagger(string rootUrl, string apiVersion)
+        {
+            var cacheKey = string.Format("{0}_{1}", rootUrl, apiVersion);
+            return _cache.GetOrAdd(cacheKey, (key) => _swaggerProvider.GetSwagger(rootUrl, apiVersion));
+        }
+    }
+}
