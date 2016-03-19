@@ -9,7 +9,7 @@ namespace HQF.Tutorial.FileServer.Client.Winform
 {
     public partial class Form1 : Form
     {
-        const string uploadServiceBaseAddress = "http://localhost:48697/api/fileupload";
+        const string uploadServiceBaseAddress = "http://localhost:29778/api/Files/";
         public Form1()
         {
             InitializeComponent();
