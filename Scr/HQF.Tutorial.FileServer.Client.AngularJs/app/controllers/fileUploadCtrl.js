@@ -17,6 +17,7 @@ angular.module('angularUploadApp')
                     }).progress(function (evt) {
                     }).success(function (data, status, headers, config) {
                         // file is uploaded successfully
+                        //https://stackoverflow.com/questions/9329446/for-each-over-an-array-in-javascript
                         var length = data.length;
 
                         for (var i = 0; i < length; i++) {
