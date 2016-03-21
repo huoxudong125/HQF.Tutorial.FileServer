@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
@@ -9,7 +10,8 @@ namespace HQF.Tutorial.FileServer.Client.Winform
 {
     public partial class Form1 : Form
     {
-        const string uploadServiceBaseAddress = "http://localhost:29778/api/Files/";
+        private const string uploadServiceBaseAddress = "http://localhost:29778/api/Files/";
+
         public Form1()
         {
             InitializeComponent();
@@ -22,7 +24,6 @@ namespace HQF.Tutorial.FileServer.Client.Winform
                 textBox1.SelectionStart = textBox1.TextLength;
                 textBox1.ScrollToCaret();
             }
-
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -37,12 +38,12 @@ namespace HQF.Tutorial.FileServer.Client.Winform
             this.linkLabel1.Links.Remove(linkLabel1.Links[0]);
             this.linkLabel1.Links.Add(0, linkLabel1.Text.Length, "http://hqfz.cnblogs.com/");
 
-            // Set the file dialog to filter for graphics files. 
+            // Set the file dialog to filter for graphics files.
             this.openFileDialog1.Filter =
                 "Images (*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF|" +
                 "All files (*.*)|*.*";
 
-            // Allow the user to select multiple images. 
+            // Allow the user to select multiple images.
             this.openFileDialog1.Multiselect = true;
             this.openFileDialog1.Title = "Browse files to upload.";
         }
@@ -55,13 +56,12 @@ namespace HQF.Tutorial.FileServer.Client.Winform
                 try
                 {
                     HttpClient httpClient = new HttpClient();
-                    // Read the files 
+                    // Read the files
                     foreach (String file in openFileDialog1.FileNames)
                     {
-
                         var fileStream = File.Open(file, FileMode.Open);
                         var fileInfo = new FileInfo(file);
-                        FileUploadResult uploadResult = null;
+                        List<FileUploadResult> uploadResults = null;
                         bool _fileUploaded = false;
 
                         var content = new MultipartFormDataContent();
@@ -76,8 +76,8 @@ namespace HQF.Tutorial.FileServer.Client.Winform
 
                                 if (response.IsSuccessStatusCode)
                                 {
-                                    uploadResult = response.Content.ReadAsAsync<FileUploadResult>().Result;
-                                    if (uploadResult != null)
+                                    uploadResults = response.Content.ReadAsAsync<List<FileUploadResult>>().Result;
+                                    if (uploadResults != null)
                                         _fileUploaded = true;
 
                                     // Read other header values if you want..
@@ -98,8 +98,11 @@ namespace HQF.Tutorial.FileServer.Client.Winform
 
                         taskUpload.Wait();
                         if (_fileUploaded)
-                            AddMessage(uploadResult.FileName + " with length " + uploadResult.FileLength
-                                            + " has been uploaded at " + uploadResult.LocalFilePath);
+                            foreach (var uploadResult in uploadResults)
+                            {
+                                AddMessage(uploadResult.FileName + " with length " + uploadResult.FileLength
+                                           + " has been uploaded at " + uploadResult.LocalFilePath);
+                            }
                     }
 
                     httpClient.Dispose();
@@ -123,6 +126,5 @@ namespace HQF.Tutorial.FileServer.Client.Winform
             {
             }
         }
-
     }
 }
