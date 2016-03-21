@@ -17,7 +17,13 @@ angular.module('angularUploadApp')
                     }).progress(function (evt) {
                     }).success(function (data, status, headers, config) {
                         // file is uploaded successfully
-                        $scope.UploadedFiles.push({ FileName: data.FileName, FilePath: data.LocalFilePath, FileLength : data.FileLength });
+                        var length = data.length;
+
+                        for (var i = 0; i < length; i++) {
+                            var element = data[i];
+                            // Do something with element i.
+                            $scope.UploadedFiles.push({ FileName: element.FileName, FilePath: element.LocalFilePath, FileLength: element.FileLength });
+                        }
                     }).error(function (data, status, headers, config) {
                         console.log(data);
                     });
